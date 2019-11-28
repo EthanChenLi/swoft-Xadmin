@@ -9,21 +9,21 @@
 ### swoft admin 
 基于swoft 2.x 和 xadmin 开发的快速后台框架。
 
-#####版本和依赖要求：
+##### 版本和依赖要求：
 * php 7.2+
 * swoole 4.4+
 * php-redis拓展
 * linux或macos系统
 
 
-#升级记录
+# 升级记录
 
-####v0.0.1 
+### v0.0.1 
 
 * 基本工具开发
 
 
-#启动方式
+# 启动方式
 
 ```
     swoftcli run -c ws:start
@@ -33,7 +33,7 @@
     php bin/swoft ws:start
 ```
 
-#切换配置
+## 切换配置
 
 应用配置位于 ```./config/{ENV}/base.php```，只需要将```base.php```文件中的配置修改为：
 ```php
