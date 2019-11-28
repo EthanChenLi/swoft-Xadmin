@@ -1,0 +1,76 @@
+{include file="common/header"}
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+
+                <form method="post" class="layui-form" action="">
+
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label"><span class="x-red">*</span>父级</label>
+                        <div class="layui-input-block">
+                            <select name="group_id" lay-filter="selPid" lay-verify="text" >
+                                <option value=""></option>
+                                <option value="0">超级管理组</option>
+                                {volist name="$group_list" id="vo"}
+                                    <option value="{$vo.id}"  {notempty name="$info"}{if condition="$info.pid eq $vo.id"} selected{/if}{/notempty}  >{$vo.name}</option>
+                                    {notempty name="$vo.children"}
+                                        {volist name="$vo.children" id="svo"}
+                                            <option value="{$svo.id}" {notempty name="$info"}{if condition="$info.pid eq $svo.id"} selected{/if}{/notempty} >&nbsp;&nbsp; |- {$svo.name}</option>
+                                                {notempty name="$svo.children"}
+                                                    {volist name="$svo.children" id="ssvo"}
+                                                        <option value="{$ssvo.id}" disabled  {notempty name="$info"}{if condition="$info.pid eq $ssvo.id"} selected{/if}{/notempty} >&nbsp;&nbsp;&nbsp;&nbsp; |-- {$ssvo.name}</option>
+                                                    {/volist}
+                                                {/notempty}
+                                        {/volist}
+                                    {/notempty}
+                                {/volist}
+                            </select>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>用户昵称</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="admin_nickname" required=""  lay-verify="text"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>用户登录名</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="admin_username" required=""  lay-verify="text"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="L_pass" name="admin_pwd" required="" lay-verify="pass" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label">
+                            <span class="x-red">*</span>确认密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="L_repass" name="repass" required="" lay-verify="repass" autocomplete="off" class="layui-input"></div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label"></label>
+
+                        <button class="layui-btn" type="submit" lay-filter="sub" lay-submit="">增加</button></div>
+                </form>
+
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,259 @@
+{include file="common/header"}
+
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <form class="layui-form layui-col-space5">
+
+                                <div class="layui-inline layui-show-xs-block">
+
+                                    <input type="text" name="params[like][value]" lay-verify="title" autocomplete="off" placeholder="请输入关键词" class="layui-input layui-btn-sm" value="{$keywords.like.value|default=''}">
+                                    <input name="params[like][fields]" value="title|route" type="hidden">
+                                </div>
+
+                                <div class="layui-inline layui-show-xs-block">
+                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-card-header">
+                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加规则','add',800,600)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn layui-btn-primary" onclick="stopAll()"><i class="layui-icon"></i>批量停用/启用</button>
+
+                        </div>
+                        <div class="layui-card-body layui-table-body layui-table-main">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                  <tr>
+                                    <th> <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary"> </th>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>图标</th>
+                                    <th>规则</th>
+                                    <th>排序</th>
+                                    <th>菜单</th>
+                                    <th>状态</th>
+                                    <th>操作</th></tr>
+                                </thead>
+                                <tbody>
+
+                                {volist name="$list" id="vo"}
+                                  <tr>
+                                    <td><input type="checkbox" name="id" value="{$vo.id}"   lay-skin="primary"></td>
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.title|default=""}</td>
+                                    <td>
+                                        {notempty name="$vo.icon"}
+                                            <i class="layui-icon {$vo.icon}"></i>
+                                        {/notempty}
+                                    </td>
+                                    <td>{$vo.route|default=""}</td>
+                                    <td>{$vo.weigh|default=""}</td>
+                                    <td>
+                                        {if condition="$vo.type eq 'menu'"}
+                                            <span style="color:green">菜单</span>
+                                        {else/}
+                                            普通节点
+                                        {/if}
+                                    </td>
+                                    <td>
+                                        {if condition="$vo.status eq 1"}
+                                            <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                        {else/}
+                                            <span class="layui-btn layui-btn-danger layui-btn-mini">已禁用</span>
+                                        {/if}
+                                    </td>
+                                    <td class="td-manage">
+                                      <a onclick="xadmin.open('修改规则','/admin/auth.rule/edit?id={$vo.id}',800,600)" title="修改规则" href="javascript:;">
+                                        <i class="layui-icon">&#xe631;</i>
+                                          修改
+                                      </a>
+                                        {if condition="$vo.status eq 1"}
+                                          <a title="停用" onclick="member_stop(this,'{$vo.id}')" href="javascript:;">
+                                            <i class="layui-icon">&#x1006;</i>
+                                              停用
+                                          </a>
+                                        {else/}
+                                          <a title="启用" onclick="member_stop(this,'{$vo.id}')" href="javascript:;">
+                                            <i class="layui-icon">&#xe605;</i>
+                                            启用
+                                          </a>
+                                        {/if}
+                                        <a title="删除" onclick="member_del(this,'{$vo.id}')" href="javascript:;">
+                                            <i class="layui-icon">&#xe640;</i>
+                                            删除
+                                        </a>
+
+                                    </td>
+                                  </tr>
+
+                                    {notempty name="$vo.children"}
+                                        {volist name="vo.children" id="svo"}
+                                            <tr>
+                                                <td><input type="checkbox" name="id" value="{$svo.id}"   lay-skin="primary"></td>
+                                                <td>{$svo.id}</td>
+                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;|- {$svo.title|default=""}</td>
+                                                <td>
+                                                    {notempty name="$svo.icon"}
+                                                    <i class="layui-icon {$svo.icon}"></i>
+                                                    {/notempty}
+                                                </td>
+                                                <td>{$svo.route|default=""}</td>
+                                                <td>{$svo.weigh|default=""}</td>
+                                                <td>
+                                                    {if condition="$svo.type eq 'menu'"}
+                                                         <span style="color:green">菜单</span>
+                                                    {else/}
+                                                        普通节点
+                                                    {/if}
+                                                </td>
+                                                <td>
+                                                    {if condition="$svo.status eq 1"}
+                                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                                    {else/}
+                                                    <span class="layui-btn layui-btn-danger layui-btn-mini">已禁用</span>
+                                                    {/if}
+                                                </td>
+                                                <td class="td-manage">
+                                                    <a onclick="xadmin.open('修改规则','/admin/auth.rule/edit?id={$svo.id}',800,600)" title="修改规则" href="javascript:;">
+                                                        <i class="layui-icon">&#xe631;</i>
+                                                        修改
+                                                    </a>
+                                                    {if condition="$svo.status eq 1"}
+                                                    <a title="停用" onclick="member_stop(this,'{$svo.id}')" href="javascript:;">
+                                                        <i class="layui-icon">&#x1006;</i>
+                                                        停用
+                                                    </a>
+                                                    {else/}
+                                                    <a title="启用" onclick="member_stop(this,'{$svo.id}')" href="javascript:;">
+                                                        <i class="layui-icon">&#xe605;</i>
+                                                        启用
+                                                    </a>
+                                                    {/if}
+                                                    <a title="删除" onclick="member_del(this,'{$svo.id}')" href="javascript:;">
+                                                        <i class="layui-icon">&#xe640;</i>
+                                                        删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                                {notempty name="$svo.children"}
+                                                    {volist name="svo.children" id="ssvo"}
+                                                        <tr>
+                                                        <td><input type="checkbox" name="id" value="{$ssvo.id}"   lay-skin="primary"></td>
+                                                        <td>{$ssvo.id}</td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--- {$ssvo.title|default=""}</td>
+                                                        <td>
+                                                            {notempty name="$ssvo.icon"}
+                                                            <i class="layui-icon {$ssvo.icon}"></i>
+                                                            {/notempty}
+                                                        </td>
+                                                        <td>{$ssvo.route|default=""}</td>
+                                                        <td>{$ssvo.weigh|default=""}</td>
+                                                        <td>
+                                                            {if condition="$ssvo.type eq 'menu'"}
+                                                                <span style="color:green">菜单</span>
+                                                            {else/}
+                                                                普通节点
+                                                            {/if}
+                                                        </td>
+                                                        <td>
+                                                            {if condition="$ssvo.status eq 1"}
+                                                                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                                            {else/}
+                                                                <span class="layui-btn layui-btn-danger layui-btn-mini">已禁用</span>
+                                                            {/if}
+                                                        </td>
+                                                        <td class="td-manage">
+                                                            <a onclick="xadmin.open('修改规则','/admin/auth.rule/edit?id={$ssvo.id}',800,600)" title="修改规则" href="javascript:;">
+                                                                <i class="layui-icon">&#xe631;</i>
+                                                                修改
+                                                            </a>
+                                                            {if condition="$ssvo.status eq 1"}
+                                                            <a title="停用" onclick="member_stop(this,'{$ssvo.id}')" href="javascript:;">
+                                                                <i class="layui-icon">&#x1006;</i>
+                                                                停用
+                                                            </a>
+                                                            {else/}
+                                                            <a title="启用" onclick="member_stop(this,'{$ssvo.id}')" href="javascript:;">
+                                                                <i class="layui-icon">&#xe605;</i>
+                                                                启用
+                                                            </a>
+                                                            {/if}
+                                                            <a title="删除" onclick="member_del(this,'{$ssvo.id}')" href="javascript:;">
+                                                                <i class="layui-icon">&#xe640;</i>
+                                                                删除
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {/volist}
+                                                {/notempty}
+                                        {/volist}
+                                    {/notempty}
+                                {/volist}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-card-body ">
+                            {:$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>
+<script>
+    function stopAll(argument){
+        var ids = [];
+        // 获取选中的id
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+                ids.push($(this).val())
+            }
+        });
+        layer.confirm('确认要停用/启用该规则吗？'+ids.toString(),function(index){
+            //捉到所有被选中的，发异步进行删除
+            ajaxStop(ids);
+        });
+    }
+
+
+    function member_stop(obj,id){
+        layer.confirm('确认要停用/启用该规则吗？',function(index){
+            ajaxStop(id);
+        });
+    }
+
+    function ajaxStop(id) {
+        $.ajax({
+            url:"rule_stop",
+            data:{id:id},
+            type:"POST",
+            beforeSend:function(){
+                layer.load();
+            },
+            success:function(data){
+                console.log(data);
+                layer.closeAll();
+                if(data.code == 200){
+                    //success
+                    layer.msg("修改成功",{
+                        icon:1,
+                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                    },function(){
+                        window.location.reload();
+                    });
+                }else{
+                    //fail
+                    layer.msg('修改失败', {icon: 2});
+
+                }
+            }
+        })
+    }
+</script>

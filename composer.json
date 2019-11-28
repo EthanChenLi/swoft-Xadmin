@@ -1,0 +1,54 @@
+{
+  "name": "swoft/swoft",
+  "type": "project",
+  "keywords": [
+    "php",
+    "swoole",
+    "swoft"
+  ],
+  "description": "Modern High performance AOP and Coroutine PHP Framework",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">7.1",
+    "ext-pdo": "*",
+    "ext-redis": "*",
+    "ext-json": "*",
+    "swoft/db": "~2.0.0",
+    "ext-mbstring": "*",
+    "swoft/framework": "~2.0.0",
+    "swoft/http-server": "~2.0.0",
+    "swoft/devtool": "^2.0",
+    "swoft/validator": "^2.0",
+    "swoft/task": "~2.0.0",
+    "swoft/redis": "~2.0.0",
+    "ethan-chen-li/think-template-swoft": "^0.3.0",
+    "swoft/websocket-server": "^2.0",
+    "phpoffice/phpspreadsheet": "^1.10",
+    "swoft/console": "^2.0"
+  },
+  "require-dev": {
+    "swoft/swoole-ide-helper": "dev-master",
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "app/Helper/Functions.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AppTest\\Testing\\": "test/testing",
+      "AppTest\\Unit\\": "test/unit"
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "test": "./vendor/bin/phpunit -c phpunit.xml",
+    "cs-fix": "./vendor/bin/php-cs-fixer fix $1"
+  }
+}

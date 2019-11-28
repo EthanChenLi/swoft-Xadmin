@@ -1,0 +1,91 @@
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="权限管理">&#xe6b8;</i>
+                    <cite>权限管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('管理员管理','/admin/auth.admin/lists')">
+                            <i class="iconfont">&#xe70b;</i>
+                            <cite>管理员管理</cite>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a onclick="xadmin.add_tab('管理员管理','/admin/auth.group/lists')">
+                            <i class="iconfont">&#xe6af;</i>
+                            <cite>角色管理</cite>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a onclick="xadmin.add_tab('管理员管理','/admin/auth.rule/lists')">
+                            <i class="iconfont">&#xe699;</i>
+                            <cite>菜单规则</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            {volist name="menu" id="vo"}
+            <li>
+                {notempty name="$vo.children"}
+                    <a href="javascript:;">
+                        <i class="layui-icon {$vo.icon}"></i>
+                        <cite>{$vo.title|default=""}</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <!--loop-->
+                    <ul class="sub-menu">
+                        {volist name="vo.children" id="svo"}
+                            <li>
+                                {notempty name="$svo.children"}
+                                    <a href="javascript:;">
+                                        <i class="layui-icon {$svo.icon}"></i>
+                                        <cite>{$svo.title|default=""}</cite>
+                                        <i class="iconfont nav_right">&#xe697;</i>
+                                    </a>
+                                            <ul class="sub-menu">
+                                                {volist name="svo.children" id="ssvo"}
+                                                <li>
+                                                    <a onclick="xadmin.add_tab('{$ssvo.title}','{$ssvo.route}')">
+                                                        <i class="layui-icon {$ssvo.icon}"></i>
+                                                        <cite>{$ssvo.title|default=""}</cite>
+                                                    </a>
+                                                </li>
+                                                {/volist}
+                                            </ul>
+
+
+                                {else/}
+                                    <a onclick="xadmin.add_tab('{$svo.title}','{$svo.route}')">
+                                        <i class="layui-icon {$svo.icon}"></i>
+                                        <cite>{$svo.title|default=""}</cite>
+                                    </a>
+                                {/notempty}
+                            </li>
+                        {/volist}
+                    </ul>
+                    <!--loop-->
+
+                {else/}
+                    <a onclick="xadmin.add_tab('{$vo.title}','{$vo.route}')">
+                        <i class="layui-icon {$vo.icon}"></i>
+                            <cite>{$vo.title|default=""}</cite>
+                    </a>
+                {/notempty}
+
+
+
+            </li>
+            </li>
+            {/volist}
+
+        </ul>
+    </div>
+</div>
+<div class="x-slide_left"></div>

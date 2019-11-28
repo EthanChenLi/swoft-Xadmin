@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+// Bootstrap
+require_once __DIR__ . '/bootstrap.php';
+
+//定义路径常量
+define("ROOT_PATH",dirname(__DIR__));
+define("PUBLIC_PATH",dirname(__DIR__).'/public/');
+
+
+Swoole\Coroutine::set([
+    'max_coroutine' => 300000,
+]);
+
+// Run application
+(new \App\Application())->run();

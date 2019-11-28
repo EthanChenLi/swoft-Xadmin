@@ -1,0 +1,97 @@
+{include file="common/header"}
+
+<body class="index">
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo">
+        <a href="/admin/index/index">后台管理系统</a></div>
+    <div class="left_open">
+        <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+    </div>
+
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item">
+            <a onclick="xadmin.add_tab('下载列表','/admin/download/lists')">下载列表</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">{$admin_username}</a>
+            <dl class="layui-nav-child">
+                <!-- 二级菜单 -->
+                    <a href="/admin/index/logout">退出</a></dd>
+            </dl>
+        </li>
+
+    </ul>
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+
+<!-- 左侧菜单开始 -->
+{include file="common/menu"}
+<!-- 左侧菜单结束 -->
+
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home">
+                <i class="layui-icon">&#xe68e;</i>我的桌面</li></ul>
+        <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+            <dl>
+                <dd data-type="this">关闭当前</dd>
+                <dd data-type="other">关闭其它</dd>
+                <dd data-type="all">关闭全部</dd></dl>
+        </div>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='/admin/index/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+        </div>
+        <div id="tab_show"></div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+<style id="theme_style"></style>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+
+</body>
+
+</html>
+
+<script>
+    var notice ="";
+    toastr.options = {
+       onclick:function(){
+           window.open(notice)
+       },
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    //websocket
+    var ws = new WebSocket("{:$ws_url}");
+
+    // 打开WebSocket连接后立刻发送一条消息:
+    ws.onopen = function(){
+        ws.send('connect');
+    }
+
+    ws.onmessage=function(evt){
+        var json = JSON.parse(evt.data);
+        if(json.event == 'output'){
+            notice = json.path
+            toastr.success("您的导出任务已经完成，请前往下载");
+        }
+    }
+
+    setInterval(function(){
+        ws.send("header ~~ ");
+    },3000);
+
+</script>

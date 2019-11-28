@@ -1,0 +1,48 @@
+{include file="common/header"}
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body layui-table-body layui-table-main">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>标题</th>
+                            <th>地址</th>
+                            <th>创建日期</th>
+                            <th>操作</th></tr>
+                        </thead>
+                        <tbody>
+                        {volist name="$list" id="vo"}
+                        <tr>
+                            <td>{$vo.id|default=""}</td>
+                            <td>{$vo.title|default=""}</td>
+                            <td>{$vo.path|default=""}</td>
+                            <td>{$vo.createdAt|default=""}</td>
+                            <td class="td-manage">
+                                <a target="_blank" href="{$vo.path}">
+                                    <i class="layui-icon">&#xe714;</i>
+                                    下载
+                                </a>
+
+                            </td>
+                        </tr>
+                        {/volist}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-card-body ">
+                    {:$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

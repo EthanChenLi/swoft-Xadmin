@@ -1,0 +1,115 @@
+{include file="common/header"}
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+
+                <form method="post" class="layui-form" action="">
+
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>父级</label>
+                        <div class="layui-input-block">
+
+                            <select name="pid" lay-filter="selPid" >
+                                <option value="0">超级管理组</option>
+                                {volist name="$group_list" id="vo"}
+                                    <option value="{$vo.id}"  {notempty name="$info"}{if condition="$info.pid eq $vo.id"} selected{/if}{/notempty}  >{$vo.name}</option>
+                                        {notempty name="$vo.children"}
+                                            {volist name="$vo.children" id="svo"}
+                                                <option value="{$svo.id}"  {notempty name="$info"}{if condition="$info.pid eq $svo.id"} selected{/if}{/notempty} >&nbsp;&nbsp; |- {$svo.name}</option>
+                                                    {notempty name="$svo.children"}
+                                                        {volist name="$svo.children" id="ssvo"}
+                                                            <option value="{$ssvo.id}" disabled  {notempty name="$info"}{if condition="$info.pid eq $ssvo.id"} selected{/if}{/notempty} >&nbsp;&nbsp;&nbsp;&nbsp; |-- {$ssvo.name}</option>
+                                                        {/volist}
+                                                    {/notempty}
+                                            {/volist}
+                                        {/notempty}
+                                {/volist}
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>名称</label>
+                        <div class="layui-input-block">
+                            <input type="text"  name="name" required=""  value="{$info.name|default=""}" lay-verify="text"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>权限</label>
+                        <div class="layui-input-block">
+                            <div id="tree"></div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label">
+                            <span class="x-red">*</span>状态</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="status" value="1" title="正常" checked="">
+                            <input type="radio" name="status" value="0" title="隐藏">
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label"></label>
+                        <input type="hidden" name="id" value="{$info.id|default=''}">
+                        <button class="layui-btn" type="submit" lay-filter="sub" lay-submit="">提交</button></div>
+                </form>
+
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    layui.use(['tree','form'], function() {
+        var tree = layui.tree,form = layui.form;
+
+        var data = {:$tree};
+        tree.render({
+            elem: '#tree'
+            ,data: data
+            ,showCheckbox: true
+            ,id: 'trees'
+        });
+
+
+        form.on('select(selPid)', function(data){
+            let pid = data.value
+            let this_id ="{$info.id??null}";
+            $.ajax({
+                type:"GET",
+                data:{pid:pid,this_id:this_id},
+                url:"get_pid",
+                beforeSend:function(){
+                    layer.load();
+                },
+                success:function(data){
+                    layer.closeAll();
+
+                    tree.render({
+                        elem: '#tree'
+                        ,data: data.data
+                        ,showCheckbox: true
+                        ,id: 'trees'
+                    });
+
+
+                }
+
+            });
+
+
+        });
+
+
+    });
+    
+
+
+</script>
