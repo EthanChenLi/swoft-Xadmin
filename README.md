@@ -24,8 +24,9 @@ v0.0.2 删除一个特别智障的问题
 # 安装方法
 * 1、修改```./config/dev(pro)/bese.php```中关于数据库的配置  
 * 2、在mysql中新建一个数据库  
-* 3、执行```php bin/swoft install:exec```，如果数据库中出现表说明安装成功  
-* 4、启动框架访问
+* 3、composer install
+* 4、执行```php bin/swoft install:exec```，如果数据库中出现表说明安装成功  
+* 5、启动框架访问
 
 # 启动方式
 
