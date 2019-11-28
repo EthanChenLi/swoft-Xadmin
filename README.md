@@ -17,11 +17,14 @@
 
 
 #升级记录
+
 ####v0.0.1 
+
 * 基本工具开发
 
 
 #启动方式
+
 ```
     swoftcli run -c ws:start
 ```
@@ -31,6 +34,7 @@
 ```
 
 #切换配置
+
 应用配置位于 ```./config/{ENV}/base.php```，只需要将```base.php```文件中的配置修改为：
 ```php
 //应用级配置
@@ -41,6 +45,7 @@
 ```
 
 # 分组路由
+
 支持分组路由，如 ```http://DOMAIN/admin/auth.group/lists```，对应目录: ```Http/Controller/Admin/Auth/AdminController```
 
 
@@ -54,10 +59,12 @@
 * 快捷导出到excel
 
 ## 使用要求
+
 * 控制器的名称必须与路由名称对应，如： ```IndexController.php``` 路由地址必须是 ```/admin/index```；
 * 提供各种重写方法，以 ```__foo```格式重写，返回指定的格式；
 * 模板引擎使用THINKPHP，文档地址： [think-template](https://www.kancloud.cn/manual/think-template/1286403)
 ## 路径定义
+
 ```url
 http://DOMAIN/admin/{Controller}/{lists/add/edit/del}/{?id=}
 ```
@@ -66,12 +73,14 @@ http://DOMAIN/admin/{Controller}/{lists/add/edit/del}/{?id=}
 ，路由器会寻找```/resource/views/index/lists.html```模板文件，否则将会抛出异常到控制台。
 
 ## 全局配置
+
 在需要使用快速curd模板的控制器中引入Trait（trait引入方式见php document)即可
 ```php
 use \App\Http\Traits\HttpBaseTrait;
 ```
 
 ### 关联实体模型
+
 ```php
 protected $model ={Entity}::class;
 ```
@@ -81,6 +90,7 @@ protected $model =Admin::class;
 ```
 
 ## 一、list列表模板
+
 ```url
 http://DOMAIN/admin/{Controller}/lists
 ```
@@ -94,6 +104,7 @@ lists将会输出以下变量：
 ### lists快捷模板
 
 ##### 一、模糊搜索
+
 ```html
 <div class="layui-input-inline">
     <input type="text" name="params[like][value]" lay-verify="title" autocomplete="off" placeholder="请输入关键词" class="layui-input layui-btn-sm" value="<?php echo($data['keywords']['like']['value']); ?>">
@@ -105,6 +116,7 @@ lists将会输出以下变量：
 * ```{field1}|{field2}```替换成你需要查询的数据库的表字段（必须与表字段对应），使用管道符"|" 分割。
 
 ##### 二、精确搜索
+
 ```html
  <input type="input" name="params[{fields}]" value="{your values}">
 ```
@@ -114,6 +126,7 @@ lists将会输出以下变量：
 #### 重写方法
 
 ##### 一、 重写请求查询条件方法
+
 用于重写查询条件，返回条件数组
 ```php
 __listsKeywords(array $params, array $map):array
@@ -123,6 +136,7 @@ __listsKeywords(array $params, array $map):array
 * 必须返回符合swoft的ORM查询条件数组！
 
 ##### 二、重写查询语句
+
 用于定制特殊查询语句，返回查询结果
 ```php
 __listsData(array $map,array $params):array
@@ -133,6 +147,7 @@ __listsData(array $map,array $params):array
 * 返回查询的结果的数组
 
 ##### 三、重写渲染页面
+
 用于自行渲染页面，返回标准响应结果
 ```php
 __listsDisplay(array $buildData):Response
@@ -141,17 +156,20 @@ __listsDisplay(array $buildData):Response
 * 返回```Swoft\Http\Message\Response``` 对象
 
 ## 二、add\edit快捷模板
+
 ```url
 http://DOMAIN/admin/{Controller}/{add/edit}{/?id=}
 ```
 
 ### 2.1 添加页面
+
 ```url
 http://DOMAIN/admin/{Controller}/add
 ```
 * 模板文件名必须为```info.html``` 。
 
 ##### 一、重写添加渲染页面
+
 ```php
 __addDisplay():Response
 ``` 
@@ -164,6 +182,7 @@ __addUpdateBefore(array $requestParams):bool
 * 返回```boolean```值用于判断是否执行成功
 
 ### 2.2 修改页面
+
 ```url
 http://DOMAIN/admin/{Controller}/edit/?id={index_id}
 ```
@@ -178,6 +197,7 @@ __editUpdateBefore(array $requestParams):bool
 * 返回```boolean```值用于判断是否执行成功
 
 ##### 一、重写修改渲染页面
+
 ```php
 __editDisplay(array $info):Response
 ``` 
@@ -188,18 +208,21 @@ __editDisplay(array $info):Response
 ### 2.3 添加/修改数据
 
 #### 添加数据
+
 ```url
 http://DOMAIN/admin/{Controller}/add
 ```
 添加数据模板name字段必须跟mysql表字段对应。
 
 #### 修改数据
+
 ```url
 http://DOMAIN/admin/{Controller}/edit
 ```
 修改数据必须提交带有主键ID的值
 
 #### 添加/修改前置方法
+
 ```php
 __{add/edit}Before(array $request):array
 ```
@@ -207,6 +230,7 @@ __{add/edit}Before(array $request):array
 * 必须返回```array```类型参数
 
 #### 添加/修改后置方法
+
 ```php
 __{add/edit}After(Mix $result):Response
 ```
@@ -214,6 +238,7 @@ __{add/edit}After(Mix $result):Response
 * 必须返回```Swoft\Http\Message\Response```对象
 
 ## 三、快捷删除
+
 ```url
 http://DOMAIN/admin/{Controller}/del{/?id=}
 ```
@@ -221,6 +246,7 @@ http://DOMAIN/admin/{Controller}/del{/?id=}
 * 该方法为硬删除（不保留数据）
 
 #### 前置方法
+
 ```php
 __delBefore(array $map):$map
 ```
@@ -228,6 +254,7 @@ __delBefore(array $map):$map
 * 返回符合swoft ORM条件的数组
 
 #### 后置方法
+
 ```php
 __delAfter(Mix $result):Response
 ```
@@ -244,6 +271,7 @@ __delAfter(Mix $result):Response
  </button>
 ```
 ### 配置
+
 在需要导出的类中添加配置
 ```php
     protected $output=[
@@ -255,6 +283,7 @@ __delAfter(Mix $result):Response
 * 第3个为选填值，该值为条件值，需要修改字段在excel中的展示值（如 status=1 ，那么第三个字段写成['开启', '禁用'])
 
 #### eg
+
 ```php
     protected $output=[
       ["admin_id","id"],
