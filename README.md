@@ -300,6 +300,28 @@ __delAfter(Mix $result):Response
     ];
 ```
 
+# session使用
+session暂未使用官方session组件
+* 支持file、Redis、table存储  
+配置查看 ```.env``` 文件
+
+### 使用方法
+```php
+//设置session
+bean('session')->setSession(string $key,array $value):bool;
+
+//获取session
+bean('session')->getSession(string $key):array;
+
+//删除
+bean('session')->delSession(string $key):array;
+
+//获取sessionID
+bean('session')->getSessionId():string
+```
+
+
+
 Swoft is an open-source software licensed under the [LICENSE](LICENSE)
 
 power by ethan[touch_789@163.com] [LICENSE](LICENSE)
