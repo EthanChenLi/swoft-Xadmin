@@ -29,9 +29,9 @@ return [
     ],
     //数据库配置
     'databases' =>[
-        'dsn'       => 'mysql:dbname=xadmin;host=db.ituu.net',
+        'dsn'       => 'mysql:dbname=;host=',
         'username'  => 'root',
-        'password'  => 'chenlixian',
+        'password'  => '',
         'charset'   => 'utf8mb4',
         'prefix'   => 'ads_',
     ],

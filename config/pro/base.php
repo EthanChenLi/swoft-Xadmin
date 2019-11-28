@@ -1,7 +1,7 @@
 <?php
 /**
  * I am what iam
- * Class Descript : 应用级配置，生产环境
+ * Class Descript : 应用级配置，开发环境
  * User: ehtan
  * Date: 2019-10-30
  * Time: 16:29
@@ -29,11 +29,11 @@ return [
     ],
     //数据库配置
     'databases' =>[
-        'dsn'       => 'mysql:dbname=xadmin;host=db.ituu.net',
+        'dsn'       => 'mysql:dbname=;host=',
         'username'  => 'root',
-        'password'  => 'chenlixian',
+        'password'  => '',
         'charset'   => 'utf8mb4',
-        'prefix'   => 'ad_',
+        'prefix'   => 'ads_',
     ],
     //redis配置
     "redis" =>[
