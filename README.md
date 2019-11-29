@@ -322,6 +322,7 @@ bean('session')->getSessionId():string
 
 
 
+
 Swoft is an open-source software licensed under the [LICENSE](LICENSE)
 
 power by ethan[touch_789@163.com] [LICENSE](LICENSE)
