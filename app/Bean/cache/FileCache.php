@@ -46,7 +46,7 @@ class FileCache implements ICache
         }
         $path = ROOT_PATH.$this->_dir;
         if(!file_exists($path)){
-            mkdir($path,0777);
+            Directory($path);
             chmod($path,0777);
         }
         $fileName =$path."/".$key;

@@ -198,3 +198,7 @@ function getOutputUri(){
         return 'output';
     }
 }
+
+function Directory( $dir ){
+    return  is_dir ( $dir ) or Directory(dirname( $dir )) and  mkdir ( $dir , 0777);
+}
