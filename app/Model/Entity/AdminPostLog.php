@@ -58,11 +58,11 @@ class AdminPostLog extends Model
     /**
      * 
      *
-     * @Column(name="create_at", prop="createAt")
+     * @Column(name="created_at", prop="createdAt")
      *
      * @var string
      */
-    private $createAt;
+    private $createdAt;
 
     /**
      * 
@@ -133,13 +133,13 @@ class AdminPostLog extends Model
     }
 
     /**
-     * @param string $createAt
+     * @param string $createdAt
      *
      * @return void
      */
-    public function setCreateAt(string $createAt): void
+    public function setCreatedAt(string $createdAt): void
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -207,9 +207,9 @@ class AdminPostLog extends Model
     /**
      * @return string
      */
-    public function getCreateAt(): ?string
+    public function getCreatedAt(): ?string
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
     /**

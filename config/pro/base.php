@@ -1,7 +1,7 @@
 <?php
 /**
  * I am what iam
- * Class Descript : 应用级配置，开发环境
+ * Class Descript : 应用级配置，生产环境
  * User: ehtan
  * Date: 2019-10-30
  * Time: 16:29
@@ -17,7 +17,7 @@ return [
 
     //websocket 配置
     "wsServer"=>[
-        'port'=>8000,
+        'port'=>9000,
         'auth_hash'=>"qi4ol4fe9a31b970ad89c6dbb13ed000",
         "uri"=>[
             "notice"=>'/notice',//内部消息推送uri
@@ -37,7 +37,7 @@ return [
     ],
     //redis配置
     "redis" =>[
-        'host'     => '192.168.0.200',
+        'host'     => '127.0.0.1',
         'driver'   => 'phpredis',
         'port'     => 6379,
         'database' => 0,
