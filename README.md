@@ -15,7 +15,11 @@
 * php-redis拓展
 * linux或macos系统
 
-
+##### 参考文档
+[swoole文档](https://wiki.swoole.com/)  
+[swoft文档](https://swoft.org/docs)  
+[xadmin演示](http://x.xuebingsi.com/)  
+ 
 # 升级记录
 
 v0.0.1  
