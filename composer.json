@@ -24,7 +24,8 @@
     "ethan-chen-li/think-template-swoft": "^0.3.0",
     "swoft/websocket-server": "^2.0",
     "phpoffice/phpspreadsheet": "^1.10",
-    "swoft/console": "^2.0"
+    "swoft/console": "^2.0",
+    "swoft/session": "^2.0"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "dev-master",

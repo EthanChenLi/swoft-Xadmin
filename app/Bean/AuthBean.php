@@ -41,8 +41,7 @@ class AuthBean
      * 鉴权
      */
     public function authCheck():bool{
-       # $userinfo = HttpSession::current()->get("USERINFO");
-        $userinfo = bean("session")->getSession("USERINFO");
+        $userinfo = HttpSession::current()->get("USERINFO");
         if(\bean('adminLogic')->isSuper($userinfo['admin_username']))return true;
         //当前访问的URI
         $uri = \context()->getRequest()->getUri()->getPath();
@@ -65,8 +64,7 @@ class AuthBean
      * @return bool
      */
     public function isLogin():bool{
-        #return !empty(HttpSession::current()->get("USERINFO")['admin_id'])?true:false;
-        return !empty(bean("session")->getSession("USERINFO")['admin_id'])?true:false;
+        return !empty(HttpSession::current()->get("USERINFO")['admin_id'])?true:false;
     }
 
 }

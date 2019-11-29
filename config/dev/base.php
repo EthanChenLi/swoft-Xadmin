@@ -29,7 +29,7 @@ return [
     ],
     //数据库配置
     'databases' =>[
-        'dsn'       => 'mysql:dbname=;host=',
+        'dsn'       => 'mysql:dbname=数据库名称;host=mysql链接地址',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8mb4',
@@ -37,7 +37,7 @@ return [
     ],
     //redis配置
     "redis" =>[
-        'host'     => '127.0.0.1',
+        'host'     => '192.168.0.200',
         'driver'   => 'phpredis',
         'port'     => 6379,
         'database' => 0,

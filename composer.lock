@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b343d384a71902239d6b9b1e62457d8",
+    "content-hash": "769a3e3664ee8d038e793e07339ed2ad",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1887,6 +1887,51 @@
                 "swoole"
             ],
             "time": "2019-11-17T16:38:19+00:00"
+        },
+        {
+            "name": "swoft/session",
+            "version": "v2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swoft-cloud/swoft-session.git",
+                "reference": "3ac0a9f85a4cdd4da801f9532baf087ee7e6a07d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swoft-cloud/swoft-session/zipball/3ac0a9f85a4cdd4da801f9532baf087ee7e6a07d",
+                "reference": "3ac0a9f85a4cdd4da801f9532baf087ee7e6a07d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "swoft/http-message": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Swoft\\Http\\Session\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Http session component for swoft",
+            "keywords": [
+                "php",
+                "session",
+                "swoft",
+                "swoole"
+            ],
+            "time": "2019-11-17T16:42:05+00:00"
         },
         {
             "name": "swoft/stdlib",

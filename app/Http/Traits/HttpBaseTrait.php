@@ -284,8 +284,7 @@ trait HttpBaseTrait
             $result =Task::async("ExcelOutpub","process",[
                 $data,
                 $this->output,
-                #HttpSession::current()->get("USERINFO")['admin_id']??0
-                bean("session")->getSession("USERINFO")['admin_id']??0
+                HttpSession::current()->get("USERINFO")['admin_id']??0
             ]);
 
         }catch (\Exception $e){

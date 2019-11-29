@@ -16,6 +16,7 @@ use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Http\Message\Cookie;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
 use Swoft\Http\Session\Handler\RedisHandler;
+use Swoft\Http\Session\HttpSession;
 
 /**
  * Class httpRouteMiddleware
@@ -32,6 +33,8 @@ class httpRouteMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        //初始话sessionid
+        HttpSession::current()->set("SWOFT_SESSION_ID","SWOFT_SESSION_ID");
         //拦截favicon
         $path = $request->getUri()->getPath();
         if ($path === '/favicon.ico') {

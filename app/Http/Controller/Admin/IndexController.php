@@ -18,6 +18,7 @@ use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\Middlewares;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Http\Session\HttpSession;
 use Swoft\Redis\Redis;
 
 
@@ -41,8 +42,7 @@ class IndexController
      */
     public function index(Request $request){
         //创建ws hash
-        //$userinfo =HttpSession::current()->get("USERINFO");
-        $userinfo = bean("session")->getSession("USERINFO");
+        $userinfo =HttpSession::current()->get("USERINFO");
         $time = time();
         $wsParams = ['uid'=>$userinfo['admin_id'], "rand"=>$time,"hash"=>md5($userinfo['admin_id'].$time.config("wsServer.auth_hash"))];
 
@@ -80,8 +80,7 @@ class IndexController
      */
     public function welcome(){
         return fetchView("index/welcome",[
-            #'userinfo' => HttpSession::current()->get('USERINFO')
-            'userinfo' => bean('session')->getSession('USERINFO')
+            'userinfo' => HttpSession::current()->get('USERINFO')
         ]);
     }
 
@@ -90,8 +89,7 @@ class IndexController
      * @RequestMapping(route="logout")
      */
     public function logout():Response{
-       # HttpSession::current()->delete("USERINFO");
-        bean('session')->delSession("USERINFO");
+        HttpSession::current()->delete("USERINFO");
         return redirect("/admin/login/index");
     }
 
