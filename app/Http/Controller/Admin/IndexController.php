@@ -11,6 +11,7 @@ namespace App\Http\Controller\Admin;
 
 use App\Http\Middleware\authCheckMiddleware;
 use App\Model\Entity\AuthRule;
+use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
@@ -38,13 +39,15 @@ class IndexController
      * 后台首页
      * @RequestMapping(route="index",method={RequestMethod::GET})
      */
-    public function index(){
+    public function index(Request $request){
         //创建ws hash
         //$userinfo =HttpSession::current()->get("USERINFO");
         $userinfo = bean("session")->getSession("USERINFO");
         $time = time();
         $wsParams = ['uid'=>$userinfo['admin_id'], "rand"=>$time,"hash"=>md5($userinfo['admin_id'].$time.config("wsServer.auth_hash"))];
-        $ws_url="ws://127.0.0.1:".config("wsServer.port").config("wsServer.uri.notice")."/?".http_build_query($wsParams);
+
+
+        $ws_url="ws://".$request->getUri()->getHost().":".$request->getUri()->getPort().config("wsServer.uri.notice")."/?".http_build_query($wsParams);
 
         //获取菜单list
         $menuList=  (\bean("AuthRuleLogic")->getFatherLists(

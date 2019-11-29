@@ -49,7 +49,7 @@ CREATE TABLE `ad_admin_post_log` (
   `uri` varchar(128) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `client_ip` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `request_data` text COLLATE utf8mb4_bin NOT NULL,
-  `create_at` varchar(0) COLLATE utf8mb4_bin NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `response_data` text COLLATE utf8mb4_bin NOT NULL,
   `status_code` int(4) NOT NULL DEFAULT '0',
