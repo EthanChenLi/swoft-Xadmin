@@ -60,7 +60,7 @@ class ExcelOutputTask
                 $path = md5(time().rand(111,999)).'.xlsx';
                 $dir = ROOT_PATH."/public/uploads/excel/";
                 if(!file_exists($dir)){
-                    mkdir($dir,0777);
+                    Directory($dir);
                     chmod($dir,0777);
                 }
                 $writer->save($dir.$path);
