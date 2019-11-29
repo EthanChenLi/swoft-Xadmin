@@ -1,3 +1,4 @@
 /vendor
 /runtime
+/public/uploads
 .idea
