@@ -42,16 +42,12 @@ class LoginController
         $adminId = bean("adminLogic")->loginCheck($param['username'],$param['password']);
         if($adminId){
             //登录成功
-           /* HttpSession::current()->set("USERINFO",[
-                'admin_id'=>$adminId,
-                'admin_username'=>$param['username'],
-            ]);*/
-            $result = bean('session')->setSession("USERINFO",[
+            HttpSession::current()->set("USERINFO",[
                 'admin_id'=>$adminId,
                 'admin_username'=>$param['username'],
             ]);
 
-            if(!$result)  return failWithJson("登录异常");
+            if(!HttpSession::current()->has("USERINFO"))  return failWithJson("登录异常");
 
             $this->_writelog($param);
 

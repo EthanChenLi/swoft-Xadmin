@@ -36,8 +36,7 @@ class PostLogLogic
             "uri"=> $request->getUri()->getPath(),
             "client_ip" =>$request->getServerParams()['remote_addr'],
             "request_data"=> json_encode(empty($request_data)?$request->getParsedBody():$request_data),
-           # "user_id"=>HttpSession::current()->get("USERINFO")['admin_id']??"",
-            "user_id"=>\bean("session")->getSession("USERINFO")['admin_id']??"",
+            "user_id"=>HttpSession::current()->get("USERINFO")['admin_id']??"",
             "response_data" =>json_encode(empty($response_data)?$response->getData():$response_data),
             "status_code" =>$response->getStatusCode()??""
         ]);

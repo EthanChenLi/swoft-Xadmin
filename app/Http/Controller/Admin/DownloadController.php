@@ -14,8 +14,9 @@ use App\Model\Entity\Download;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\Middlewares;
-use Swoft\Http\Session\HttpSession;
 use App\Http\Middleware\authCheckMiddleware;
+use Swoft\Http\Session\HttpSession;
+
 /**
  * Class DownloadController
  * @package App\Http\Controller\Admin
@@ -28,9 +29,8 @@ class DownloadController
     protected $model = Download::class;
 
     public function __listsKeywords(array $param,array $map):array{
-
         return array_merge($map,[
-           'uid'=>bean("session")->getSession("USERINFO")['admin_id']
+           'uid'=>HttpSession::current()->get("USERINFO")['admin_id']
         ]);
     }
 

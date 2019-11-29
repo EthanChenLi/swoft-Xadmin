@@ -25,6 +25,7 @@
 v0.0.1  
 v0.0.2 删除一个特别智障的问题   
 v0.0.3 修复一些特别蛋疼的问题   
+v0.1.0 修复一些无聊的问题，使用官方session组件
 
 # 安装方法
 * 1、修改```./config/dev(pro)/bese.php```中关于数据库的配置  
@@ -305,27 +306,6 @@ __delAfter(Mix $result):Response
       ["group_name","所属组"],
     ];
 ```
-
-# session使用
-session暂未使用官方session组件
-* 支持file、Redis、table存储  
-配置查看 ```.env``` 文件
-
-### 使用方法
-```php
-//设置session
-bean('session')->setSession(string $key,array $value):bool;
-
-//获取session
-bean('session')->getSession(string $key):array;
-
-//删除
-bean('session')->delSession(string $key):array;
-
-//获取sessionID
-bean('session')->getSessionId():string
-```
-
 
 
 

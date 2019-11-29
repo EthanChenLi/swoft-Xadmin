@@ -49,8 +49,8 @@ return [
     'httpDispatcher'=>[
         //全局中间件
         'middlewares'=>[
+            \Swoft\Http\Session\SessionMiddleware::class,//session中间件
             \App\Http\Middleware\httpRouteMiddleware::class, //http请求全局中间件
-            \App\Http\Middleware\sessionMiddleware::class,//SESSION中间件
         ],
         'afterMiddlewares' => [
 

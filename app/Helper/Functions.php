@@ -199,6 +199,11 @@ function getOutputUri(){
     }
 }
 
+/**
+ * 创建目录
+ * @param $dir string 目录路径
+ * @return bool
+ */
 function Directory( $dir ){
     return  is_dir ( $dir ) or Directory(dirname( $dir )) and  mkdir ( $dir , 0777);
 }
