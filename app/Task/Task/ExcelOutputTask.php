@@ -29,7 +29,7 @@ class ExcelOutputTask
      * 标题字段
      * @var array
      */
-    private $_fields = ['A','B','C','D','E','F','G','H','I','G','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    private $_fields = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
     /**
      *

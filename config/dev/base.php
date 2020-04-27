@@ -37,7 +37,7 @@ return [
     ],
     //redis配置
     "redis" =>[
-        'host'     => '192.168.0.200',
+        'host'     => '127.0.0.1',
         'driver'   => 'phpredis',
         'port'     => 6379,
         'database' => 0,
